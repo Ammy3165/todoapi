@@ -27,4 +27,17 @@ public class todoController {
         return todoList;
     }
 
+    @DeleteMapping("/{id}")
+    public Todo deleteTask(@PathVariable int id, @RequestBody Todo todo){
+        todoRepo.deleteById(id);
+        return todo;
+    }
+    @PutMapping("/{id}")
+    public String UpdateTask(@PathVariable int id, @RequestBody Todo todo){
+       Todo taskId=todoRepo.findById(id).orElseThrow();
+       taskId.setId(todo.getId());
+       taskId.setTask(todo.getTask());
+        return "Task updated";
+    }
+
 }
